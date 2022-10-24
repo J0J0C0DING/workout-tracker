@@ -16,7 +16,9 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
   mutation Mutation($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
+      token
       user {
+        _id
         username
         email
       }
@@ -59,15 +61,15 @@ export const DELETE_ROUTINE = gql`
 `;
 
 export const UPDATE_ROUTINE = gql`
-mutation Mutation($updateRoutineId: ID!, $routineName: String!, $exercises: [String]) {
-  updateRoutine(id: $updateRoutineId, routineName: $routineName, exercises: $exercises) {
-    _id
-    routineName
-    exercises {
+  mutation Mutation($updateRoutineId: ID!, $routineName: String!, $exercises: [String]) {
+    updateRoutine(id: $updateRoutineId, routineName: $routineName, exercises: $exercises) {
       _id
+      routineName
+      exercises {
+        _id
+      }
     }
   }
-}
 `;
 
 export const ADD_EXERCISE = gql`

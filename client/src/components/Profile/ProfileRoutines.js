@@ -10,16 +10,14 @@ function generateRoutines(loadRoutines) {
     return console.log('You have no saved Routines!');
   }
 
-  return loadRoutines.map((routine) => (
-    <RoutineCard key={routine._id} routine={routine} />
-  ));
+  return loadRoutines.map(routine => <RoutineCard key={routine._id} routine={routine} />);
 }
 
 // Generate page
 function ProfileRoutines({ routines }) {
   // Pull Routines from userData and set to Routines array
-  let loadRoutines = routines.length ? routines.slice(0, 3) : null;
-  let totalRoutines = routines.length - 3;
+  let loadRoutines = routines ? routines.slice(0, 3) : null;
+  let totalRoutines = loadRoutines ? routines.length - 3 : null;
 
   return (
     <section>
@@ -27,9 +25,9 @@ function ProfileRoutines({ routines }) {
       <List sx={{ paddingTop: 0 }}>
         {loadRoutines ? generateRoutines(loadRoutines) : ''}
         {totalRoutines > 0 ? (
-          <Typography variant='overline' key='id'>
+          <Typography variant="overline" key="id">
             <Link
-              href='/routines'
+              href="/routines"
               sx={{ padding: 0, color: 'gray', textDecoration: 'underlined' }}
             >{`+ ${totalRoutines} more`}</Link>
           </Typography>

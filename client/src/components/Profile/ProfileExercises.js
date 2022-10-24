@@ -25,9 +25,9 @@ function generateExercises(loadExercises) {
 function ProfileExercises({ exercises }) {
   // Pull exercises from userData and set to exercises array
 
-  let loadExercises = exercises.length ? exercises.slice(0, 3) : null;
+  let loadExercises = exercises ? exercises.slice(0, 3) : null;
 
-  let totalExercises = exercises.length - 3;
+  let totalExercises = loadExercises ? exercises.length - 3 : null;
 
   return (
     <section>

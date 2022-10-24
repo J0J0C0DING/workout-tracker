@@ -1,4 +1,3 @@
-const { ContextualizedQueryLatencyStats } = require('apollo-reporting-protobuf');
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Routine, Exercise } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -19,7 +18,10 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     users: async () => {
-      return User.find().select('-__v -password').populate('routines').populate('exercises');
+      return User.find()
+        .select('-__v -password')
+        .populate('routines')
+        .populate('exercises');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
@@ -29,7 +31,9 @@ const resolvers = {
     },
     // needs more work
     routines: async (parent, { _id }) => {
-      return Routine.find().sort({ createdAt: -1 }).populate('exercises');
+      return Routine.find()
+        .sort({ createdAt: -1 })
+        .populate('exercises');
     },
     routine: async (parent, { _id }) => {
       return Routine.findOne({ _id }).populate('exercises');
@@ -127,7 +131,10 @@ const resolvers = {
         const routineId = args.id;
         console.log(args.exercises);
         const exercises = args.exercises;
-        const routine = await Routine.findByIdAndUpdate(routineId, { routineName: routineName, exercises: exercises });
+        const routine = await Routine.findByIdAndUpdate(routineId, {
+          routineName: routineName,
+          exercises: exercises,
+        });
         // console.log(routine)
         // await routine.findByIdAndUpdate(args.id);
 
