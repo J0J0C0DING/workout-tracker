@@ -27,6 +27,7 @@ const Signup = () => {
   // submit form
   const handleFormSubmit = async event => {
     event.preventDefault();
+    let isError;
 
     try {
       const { data } = await addUser({
@@ -35,9 +36,13 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (e) {
+      isError = true;
       console.error(e);
     }
-    window.location.replace('/profile');
+
+    if (!isError) {
+      window.location.replace('/profile');
+    }
   };
 
   return (
@@ -59,7 +64,9 @@ const Signup = () => {
           onChange={handleChange}
         />
         <Button onClick={handleFormSubmit}>Submit</Button>
-        {error ? `${error}` : ''}
+        {error
+          ? `Username or Email already in use! Please try again using a different username or email.`
+          : ''}
       </FormControl>
     </Box>
   );

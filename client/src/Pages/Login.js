@@ -31,6 +31,7 @@ const Login = () => {
   const handleFormSubmit = async event => {
     event.preventDefault();
     console.log(formState);
+    let isError;
 
     try {
       const { data } = await login({
@@ -39,6 +40,7 @@ const Login = () => {
 
       Auth.login(data.login.token);
     } catch (e) {
+      isError = true;
       console.error(e);
     }
 
@@ -47,7 +49,10 @@ const Login = () => {
       email: '',
       password: '',
     });
-    window.location.replace('/profile');
+
+    if (!isError) {
+      window.location.replace('/profile');
+    }
   };
 
   return (
